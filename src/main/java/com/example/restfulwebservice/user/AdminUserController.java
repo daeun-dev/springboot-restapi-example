@@ -4,13 +4,9 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import org.springframework.beans.BeanUtils;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -24,14 +20,14 @@ public class AdminUserController {
 
     @GetMapping("/users")
     public MappingJacksonValue retrieveAllUsers(){
-        List<User> users = service.findAll();
+        List<User> Users = service.findAll();
 
         SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
                 .filterOutAllExcept("id","name","joinDate","password");
 
         FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfo", filter);
 
-        MappingJacksonValue mapping = new MappingJacksonValue(users);
+        MappingJacksonValue mapping = new MappingJacksonValue(Users);
         mapping.setFilters(filters);
 
         return mapping;
